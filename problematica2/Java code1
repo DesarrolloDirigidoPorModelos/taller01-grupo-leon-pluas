@@ -1,0 +1,28 @@
+//Abstract
+class Supervisor
+{
+    nombre;
+1 -- * Acto;
+}
+
+class Acto
+{
+  
+  nombre;
+  lugar;
+  Double costoTotal;
+  TipoActo tipo;
+1 -- 1 Empresa;
+}
+
+class Empresa
+{
+  descripcion;
+  tipo;
+  Double ruc;
+}
+
+class Persona
+{
+  
+}
