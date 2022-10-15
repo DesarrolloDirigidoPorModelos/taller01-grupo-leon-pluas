@@ -1,0 +1,36 @@
+class Empleado
+{
+    isA Persona;
+}
+
+class Cliente
+{
+    isA Persona;
+}
+
+
+
+
+class Turno
+{
+  codigo;
+  descripcion;
+  key {codigo};
+  * -> 1 Tematica;
+
+}
+
+class Tematica
+{
+  codigo;
+  descripcion;
+key {codigo};
+}
+
+class Persona
+{
+  dni;
+  nombre;
+  1 -- * Turno;
+  key {dni};
+}

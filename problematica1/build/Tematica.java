@@ -3,45 +3,43 @@
 
 
 
-// line 18 "CodeJava.ump"
-public class Empresa
+// line 23 "CodeJava1.ump"
+public class Tematica
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Empresa Attributes
-  private double ruc;
+  //Tematica Attributes
+  private String codigo;
   private String descripcion;
-  private String tipo;
 
   //Helper Variables
   private int cachedHashCode;
-  private boolean canSetRuc;
+  private boolean canSetCodigo;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Empresa(double aRuc, String aDescripcion, String aTipo)
+  public Tematica(String aCodigo, String aDescripcion)
   {
     cachedHashCode = -1;
-    canSetRuc = true;
-    ruc = aRuc;
+    canSetCodigo = true;
+    codigo = aCodigo;
     descripcion = aDescripcion;
-    tipo = aTipo;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setRuc(double aRuc)
+  public boolean setCodigo(String aCodigo)
   {
     boolean wasSet = false;
-    if (!canSetRuc) { return false; }
-    ruc = aRuc;
+    if (!canSetCodigo) { return false; }
+    codigo = aCodigo;
     wasSet = true;
     return wasSet;
   }
@@ -54,17 +52,9 @@ public class Empresa
     return wasSet;
   }
 
-  public boolean setTipo(String aTipo)
+  public String getCodigo()
   {
-    boolean wasSet = false;
-    tipo = aTipo;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public double getRuc()
-  {
-    return ruc;
+    return codigo;
   }
 
   public String getDescripcion()
@@ -72,19 +62,18 @@ public class Empresa
     return descripcion;
   }
 
-  public String getTipo()
-  {
-    return tipo;
-  }
-
   public boolean equals(Object obj)
   {
     if (obj == null) { return false; }
     if (!getClass().equals(obj.getClass())) { return false; }
 
-    Empresa compareTo = (Empresa)obj;
+    Tematica compareTo = (Tematica)obj;
   
-    if (getRuc() != compareTo.getRuc())
+    if (getCodigo() == null && compareTo.getCodigo() != null)
+    {
+      return false;
+    }
+    else if (getCodigo() != null && !getCodigo().equals(compareTo.getCodigo()))
     {
       return false;
     }
@@ -99,9 +88,16 @@ public class Empresa
       return cachedHashCode;
     }
     cachedHashCode = 17;
-    cachedHashCode = cachedHashCode * 23 + (Double.valueOf(getRuc())).hashCode();
+    if (getCodigo() != null)
+    {
+      cachedHashCode = cachedHashCode * 23 + getCodigo().hashCode();
+    }
+    else
+    {
+      cachedHashCode = cachedHashCode * 23;
+    }
 
-    canSetRuc = false;
+    canSetCodigo = false;
     return cachedHashCode;
   }
 
@@ -111,9 +107,8 @@ public class Empresa
 
   public String toString()
   {
-    return "["+
-            "ruc" + ":" + getRuc()+ "," +
-            "descripcion" + ":" + getDescripcion()+ "," +
-            "tipo" + ":" + getTipo()+ "]";
+    return super.toString() + "["+
+            "codigo" + ":" + getCodigo()+ "," +
+            "descripcion" + ":" + getDescripcion()+ "]";
   }
 }

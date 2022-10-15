@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 26 "CodeJava.ump"
+// line 30 "CodeJava1.ump"
 public class Persona
 {
 
@@ -17,7 +17,7 @@ public class Persona
   private String nombre;
 
   //Persona Associations
-  private List<Acto> actos;
+  private List<Turno> turnos;
 
   //Helper Variables
   private int cachedHashCode;
@@ -33,7 +33,7 @@ public class Persona
     canSetDni = true;
     dni = aDni;
     nombre = aNombre;
-    actos = new ArrayList<Acto>();
+    turnos = new ArrayList<Turno>();
   }
 
   //------------------------
@@ -67,104 +67,104 @@ public class Persona
     return nombre;
   }
   /* Code from template association_GetMany */
-  public Acto getActo(int index)
+  public Turno getTurno(int index)
   {
-    Acto aActo = actos.get(index);
-    return aActo;
+    Turno aTurno = turnos.get(index);
+    return aTurno;
   }
 
-  public List<Acto> getActos()
+  public List<Turno> getTurnos()
   {
-    List<Acto> newActos = Collections.unmodifiableList(actos);
-    return newActos;
+    List<Turno> newTurnos = Collections.unmodifiableList(turnos);
+    return newTurnos;
   }
 
-  public int numberOfActos()
+  public int numberOfTurnos()
   {
-    int number = actos.size();
+    int number = turnos.size();
     return number;
   }
 
-  public boolean hasActos()
+  public boolean hasTurnos()
   {
-    boolean has = actos.size() > 0;
+    boolean has = turnos.size() > 0;
     return has;
   }
 
-  public int indexOfActo(Acto aActo)
+  public int indexOfTurno(Turno aTurno)
   {
-    int index = actos.indexOf(aActo);
+    int index = turnos.indexOf(aTurno);
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfActos()
+  public static int minimumNumberOfTurnos()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Acto addActo(String aCodigo, String aNombre, String aLugar, double aCostoTotal, Empresa aEmpresa, TipoActo aTipoActo)
+  public Turno addTurno(String aCodigo, String aDescripcion, Tematica aTematica)
   {
-    return new Acto(aCodigo, aNombre, aLugar, aCostoTotal, aEmpresa, aTipoActo, this);
+    return new Turno(aCodigo, aDescripcion, aTematica, this);
   }
 
-  public boolean addActo(Acto aActo)
+  public boolean addTurno(Turno aTurno)
   {
     boolean wasAdded = false;
-    if (actos.contains(aActo)) { return false; }
-    Persona existingPersona = aActo.getPersona();
+    if (turnos.contains(aTurno)) { return false; }
+    Persona existingPersona = aTurno.getPersona();
     boolean isNewPersona = existingPersona != null && !this.equals(existingPersona);
     if (isNewPersona)
     {
-      aActo.setPersona(this);
+      aTurno.setPersona(this);
     }
     else
     {
-      actos.add(aActo);
+      turnos.add(aTurno);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeActo(Acto aActo)
+  public boolean removeTurno(Turno aTurno)
   {
     boolean wasRemoved = false;
-    //Unable to remove aActo, as it must always have a persona
-    if (!this.equals(aActo.getPersona()))
+    //Unable to remove aTurno, as it must always have a persona
+    if (!this.equals(aTurno.getPersona()))
     {
-      actos.remove(aActo);
+      turnos.remove(aTurno);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addActoAt(Acto aActo, int index)
+  public boolean addTurnoAt(Turno aTurno, int index)
   {  
     boolean wasAdded = false;
-    if(addActo(aActo))
+    if(addTurno(aTurno))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfActos()) { index = numberOfActos() - 1; }
-      actos.remove(aActo);
-      actos.add(index, aActo);
+      if(index > numberOfTurnos()) { index = numberOfTurnos() - 1; }
+      turnos.remove(aTurno);
+      turnos.add(index, aTurno);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveActoAt(Acto aActo, int index)
+  public boolean addOrMoveTurnoAt(Turno aTurno, int index)
   {
     boolean wasAdded = false;
-    if(actos.contains(aActo))
+    if(turnos.contains(aTurno))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfActos()) { index = numberOfActos() - 1; }
-      actos.remove(aActo);
-      actos.add(index, aActo);
+      if(index > numberOfTurnos()) { index = numberOfTurnos() - 1; }
+      turnos.remove(aTurno);
+      turnos.add(index, aTurno);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addActoAt(aActo, index);
+      wasAdded = addTurnoAt(aTurno, index);
     }
     return wasAdded;
   }
@@ -210,17 +210,17 @@ public class Persona
 
   public void delete()
   {
-    for(int i=actos.size(); i > 0; i--)
+    for(int i=turnos.size(); i > 0; i--)
     {
-      Acto aActo = actos.get(i - 1);
-      aActo.delete();
+      Turno aTurno = turnos.get(i - 1);
+      aTurno.delete();
     }
   }
 
 
   public String toString()
   {
-    return "["+
+    return super.toString() + "["+
             "dni" + ":" + getDni()+ "," +
             "nombre" + ":" + getNombre()+ "]";
   }

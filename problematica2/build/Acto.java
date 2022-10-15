@@ -16,7 +16,6 @@ public class Acto
   private String nombre;
   private String lugar;
   private double costoTotal;
-  private TipoActo tipo;
 
   //Acto Associations
   private Empresa empresa;
@@ -31,7 +30,7 @@ public class Acto
   // CONSTRUCTOR
   //------------------------
 
-  public Acto(String aCodigo, String aNombre, String aLugar, double aCostoTotal, TipoActo aTipo, Empresa aEmpresa, TipoActo aTipoActo, Persona aPersona)
+  public Acto(String aCodigo, String aNombre, String aLugar, double aCostoTotal, Empresa aEmpresa, TipoActo aTipoActo, Persona aPersona)
   {
     cachedHashCode = -1;
     canSetCodigo = true;
@@ -39,35 +38,13 @@ public class Acto
     nombre = aNombre;
     lugar = aLugar;
     costoTotal = aCostoTotal;
-    tipo = aTipo;
-    if (aEmpresa == null || aEmpresa.getActo() != null)
+    if (!setEmpresa(aEmpresa))
     {
       throw new RuntimeException("Unable to create Acto due to aEmpresa. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    empresa = aEmpresa;
     if (!setTipoActo(aTipoActo))
     {
       throw new RuntimeException("Unable to create Acto due to aTipoActo. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddPersona = setPersona(aPersona);
-    if (!didAddPersona)
-    {
-      throw new RuntimeException("Unable to create acto due to persona. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-  }
-
-  public Acto(String aCodigo, String aNombre, String aLugar, double aCostoTotal, TipoActo aTipo, double aRucForEmpresa, String aDescripcionForEmpresa, String aTipoForEmpresa, TipoActo aTipoActo, Persona aPersona)
-  {
-    codigo = aCodigo;
-    nombre = aNombre;
-    lugar = aLugar;
-    costoTotal = aCostoTotal;
-    tipo = aTipo;
-    empresa = new Empresa(aRucForEmpresa, aDescripcionForEmpresa, aTipoForEmpresa, this);
-    boolean didAddTipoActo = setTipoActo(aTipoActo);
-    if (!didAddTipoActo)
-    {
-      throw new RuntimeException("Unable to create acto due to tipoActo. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddPersona = setPersona(aPersona);
     if (!didAddPersona)
@@ -113,14 +90,6 @@ public class Acto
     return wasSet;
   }
 
-  public boolean setTipo(TipoActo aTipo)
-  {
-    boolean wasSet = false;
-    tipo = aTipo;
-    wasSet = true;
-    return wasSet;
-  }
-
   public String getCodigo()
   {
     return codigo;
@@ -140,11 +109,6 @@ public class Acto
   {
     return costoTotal;
   }
-
-  public TipoActo getTipo()
-  {
-    return tipo;
-  }
   /* Code from template association_GetOne */
   public Empresa getEmpresa()
   {
@@ -159,6 +123,17 @@ public class Acto
   public Persona getPersona()
   {
     return persona;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setEmpresa(Empresa aNewEmpresa)
+  {
+    boolean wasSet = false;
+    if (aNewEmpresa != null)
+    {
+      empresa = aNewEmpresa;
+      wasSet = true;
+    }
+    return wasSet;
   }
   /* Code from template association_SetUnidirectionalOne */
   public boolean setTipoActo(TipoActo aNewTipoActo)
@@ -232,12 +207,7 @@ public class Acto
 
   public void delete()
   {
-    Empresa existingEmpresa = empresa;
     empresa = null;
-    if (existingEmpresa != null)
-    {
-      existingEmpresa.delete();
-    }
     tipoActo = null;
     Persona placeholderPersona = persona;
     this.persona = null;
@@ -250,14 +220,13 @@ public class Acto
 
   public String toString()
   {
-    return super.toString() + "["+
+    return "["+
             "codigo" + ":" + getCodigo()+ "," +
             "nombre" + ":" + getNombre()+ "," +
             "lugar" + ":" + getLugar()+ "," +
             "costoTotal" + ":" + getCostoTotal()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "tipo" + "=" + (getTipo() != null ? !getTipo().equals(this)  ? getTipo().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "empresa = "+(getEmpresa()!=null?Integer.toHexString(System.identityHashCode(getEmpresa())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "tipoActo = "+(getTipoActo()!=null?Integer.toHexString(System.identityHashCode(getTipoActo())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "persona = "+(getPersona()!=null?Integer.toHexString(System.identityHashCode(getPersona())):"null");
+            "  " + "empresa = "+(getEmpresa()!=null?getEmpresa().toString():"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "tipoActo = "+(getTipoActo()!=null?getTipoActo().toString():"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "persona = "+(getPersona()!=null?getPersona().toString():"null");
   }
 }

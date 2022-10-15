@@ -9,10 +9,9 @@ class Acto
   nombre;
   lugar;
   Double costoTotal;
-  TipoActo tipo;
   key {codigo};
 
-  1 -- 1 Empresa;
+  1 -> 1 Empresa;
   * -> 1 TipoActo;
 }
 

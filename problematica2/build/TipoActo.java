@@ -3,7 +3,7 @@
 
 
 
-// line 35 "CodeJava.ump"
+// line 34 "CodeJava.ump"
 public class TipoActo
 {
 
@@ -107,7 +107,7 @@ public class TipoActo
 
   public String toString()
   {
-    return super.toString() + "["+
+    return "["+
             "codigo" + ":" + getCodigo()+ "," +
             "descripcion" + ":" + getDescripcion()+ "]";
   }
