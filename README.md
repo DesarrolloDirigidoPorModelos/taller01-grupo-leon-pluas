@@ -5,6 +5,8 @@
   * Generar un modelo PIM
   * Generar un modelo PSM
   * Generar código en lenguaje de  programación JAVA
+    * URL del código:
+  https://github.com/DesarrolloDirigidoPorModelos/taller01-grupo-leon-pluas/blob/main/problematica2/build/Main.java
 
 * Para generar el modelo PSM y transformar a lenguaje JAVA, se debe usar la herramienta online https://cruise.umple.org/umpleonline/.
 
