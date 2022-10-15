@@ -1,8 +1,6 @@
-//Abstract
 class Supervisor
 {
-    nombre;
-1 -- * Acto;
+    isA Persona;
 }
 
 class Acto
@@ -12,7 +10,8 @@ class Acto
   lugar;
   Double costoTotal;
   TipoActo tipo;
-1 -- 1 Empresa;
+  1 -- 1 Empresa;
+  * -> 1 TipoActo;
 }
 
 class Empresa
@@ -24,5 +23,13 @@ class Empresa
 
 class Persona
 {
-  
+  nombre;
+  1 -- * Acto;
+}
+
+class TipoActo
+{
+  codigo;
+  descripcion;
+  key {codigo}
 }
