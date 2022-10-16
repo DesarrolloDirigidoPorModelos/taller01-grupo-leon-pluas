@@ -1,0 +1,19 @@
+class Persona
+{
+  nombre;
+  apellido;
+  int dni;
+}
+
+class Cliente
+{
+  isA Persona;
+}
+
+class Medidor
+{
+  marca;
+  direccion;
+  double costo;
+  * -- 1 Persona;
+}
